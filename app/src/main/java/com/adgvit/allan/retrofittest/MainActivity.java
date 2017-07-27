@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.adgvit.allan.retrofittest.data.model.AnswerResponse;
 import com.adgvit.allan.retrofittest.data.remote.RetrofitClient;
 import com.adgvit.allan.retrofittest.data.remote.Service;
 
@@ -50,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Making the retrofit call
         Call call = apiService.getAnswers();
-        call.enqueue(new Callback() {
+        call.enqueue(new Callback<AnswerResponse>() {
             @Override
-            public void onResponse(Call call, Response response) {
+            public void onResponse(Call<AnswerResponse> call, Response<AnswerResponse> response) {
                 current = response.body().getInfo();
                 initView();
 
