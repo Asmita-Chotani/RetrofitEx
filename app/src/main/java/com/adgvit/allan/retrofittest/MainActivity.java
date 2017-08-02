@@ -6,6 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adgvit.allan.retrofittest.data.model.AnswerResponse;
@@ -24,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
     private List current;
+    private Service mService;
+    private TextView mResponseTv;
+    private EditText newName, newDesc, newOrg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +79,53 @@ public class MainActivity extends AppCompatActivity {
                     pDialog.dismiss();
             }
         });
+
+        getNew();
+    }
+
+    private void getNew() {
+        newName = (EditText) findViewById(R.id.newName);
+        newDesc = (EditText) findViewById(R.id.newDesc);
+        newOrg = (EditText) findViewById(R.id.newOrg);
+        mResponseTv = (TextView) findViewById(R.id.tv_response);
+        Button sendButton = (Button) findViewById(R.id.button);
+
+        mService = ApiUtils.getService();
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = newName.getText().toString().trim();
+                String desc = newDesc.getText().toString().trim();
+                String org = newOrg.getText().toString().trim();
+                if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(desc) && !TextUtils.isEmpty(org)) {
+                    sendPost(name, desc, org);
+                }
+            }
+        });
+    }
+
+    public void sendPost(String name, String desc, String org) {
+        mService.savePost(name, desc, org).enqueue(new Callback<AnswerResponse>() {
+            @Override
+            public void onResponse(Call<AnswerResponse> call, Response<AnswerResponse> response) {
+                if(response.isSuccessful()) {
+                    showResponse(response.body().toString());
+                    Toast.makeText(getApplicationContext(), "POST successful", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnswerResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void showResponse(String response) {
+        if(mResponseTv.getVisibility() == View.GONE) {
+            mResponseTv.setVisibility(View.VISIBLE);
+        }
+        mResponseTv.setText(response);
     }
 }

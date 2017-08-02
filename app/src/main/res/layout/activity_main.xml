@@ -14,4 +14,56 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instruction"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/recycler"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/newName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newEvent"
+        android:layout_below="@+id/instruction"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newDesc"
+        android:text="@string/newDesc"
+        android:layout_below="@+id/newName"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/newOrg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newDesc"
+        android:layout_centerHorizontal="true"
+        android:text="@string/newOrg"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:text="@string/sendBttn"
+        android:layout_below="@+id/newOrg"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/tv_response"
+        android:paddingTop="35dp"/>
+
 </RelativeLayout>

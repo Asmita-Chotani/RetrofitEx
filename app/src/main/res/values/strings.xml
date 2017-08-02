@@ -5,4 +5,9 @@
     <string name="event_organiser">EVENT ORGANISIER</string>
     <string name="getRequest">GET</string>
     <string name="progress_bar_text">Please wait</string>
+    <string name="instruction">INSERT NEW EVENT DETAILS</string>
+    <string name="newEvent">New Event Name</string>
+    <string name="newDesc">New Event Description</string>
+    <string name="newOrg">New Event Organisers</string>
+    <string name="sendBttn">SEND</string>
 </resources>
